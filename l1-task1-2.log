@@ -1,0 +1,56 @@
+*** Booting Zephyr OS build v4.4.0 ***
+[00:00:00.000,000] <inf> l1_task_1_2: [T_COOP] starting - will run 5 steps without yielding
+[00:00:00.500,000] <inf> l1_task_1_2: [T_COOP] step 1/5 - still holding CPU  tick=500
+[00:00:01.000,000] <inf> l1_task_1_2: [T_COOP] step 2/5 - still holding CPU  tick=1000
+[00:00:01.500,000] <inf> l1_task_1_2: [T_COOP] step 3/5 - still holding CPU  tick=1500
+[00:00:02.000,000] <inf> l1_task_1_2: [T_COOP] step 4/5 - still holding CPU  tick=2000
+[00:00:02.500,000] <inf> l1_task_1_2: [T_COOP] step 5/5 - still holding CPU  tick=2500
+[00:00:02.500,000] <inf> l1_task_1_2: [T_COOP] yielding now!
+[00:00:02.500,000] <inf> l1_task_1_2: [T_COOP] done
+[00:00:02.500,000] <inf> l1_task_1_2: === L1 Task 1.2: Scheduling Competition ===
+[00:00:02.500,000] <inf> l1_task_1_2: Thread T_LOW: priority 7, sleeps 300ms
+[00:00:02.500,000] <inf> l1_task_1_2: Thread T_MED: priority 5, sleeps 200ms
+[00:00:02.500,000] <inf> l1_task_1_2: Thread T_HIGH: priority 3, sleeps 100ms
+[00:00:02.500,000] <inf> l1_task_1_2: Thread T_COOP: priority -1
+[00:00:02.500,000] <inf> l1_task_1_2: T_HIGH running : step 0  tick=2500
+[00:00:02.500,000] <inf> l1_task_1_2: T_MED running : step 0  tick=2500
+[00:00:02.500,000] <inf> l1_task_1_2: T_LOW running : step 0  tick=2500
+[00:00:02.610,000] <inf> l1_task_1_2: T_HIGH running : step 1  tick=2610
+[00:00:02.710,000] <inf> l1_task_1_2: T_MED running : step 1  tick=2710
+[00:00:02.720,000] <inf> l1_task_1_2: T_HIGH running : step 2  tick=2720
+[00:00:02.810,000] <inf> l1_task_1_2: T_LOW running : step 1  tick=2810
+[00:00:02.830,000] <inf> l1_task_1_2: T_HIGH running : step 3  tick=2830
+[00:00:02.920,000] <inf> l1_task_1_2: T_MED running : step 2  tick=2920
+[00:00:02.940,000] <inf> l1_task_1_2: T_HIGH running : step 4  tick=2940
+[00:00:03.050,000] <inf> l1_task_1_2: T_HIGH running : step 5  tick=3050
+[00:00:03.120,000] <inf> l1_task_1_2: T_LOW running : step 2  tick=3120
+[00:00:03.130,000] <inf> l1_task_1_2: T_MED running : step 3  tick=3130
+[00:00:03.160,000] <inf> l1_task_1_2: T_HIGH running : step 6  tick=3160
+[00:00:03.270,000] <inf> l1_task_1_2: T_HIGH running : step 7  tick=3270
+[00:00:03.340,000] <inf> l1_task_1_2: T_MED running : step 4  tick=3340
+[00:00:03.380,000] <inf> l1_task_1_2: T_HIGH running : step 8  tick=3380
+[00:00:03.430,000] <inf> l1_task_1_2: T_LOW running : step 3  tick=3430
+[00:00:03.490,000] <inf> l1_task_1_2: T_HIGH running : step 9  tick=3490
+[00:00:03.550,000] <inf> l1_task_1_2: T_MED running : step 5  tick=3550
+[00:00:03.600,000] <inf> l1_task_1_2: T_HIGH running : step 10  tick=3600
+[00:00:03.710,000] <inf> l1_task_1_2: T_HIGH running : step 11  tick=3710
+[00:00:03.740,000] <inf> l1_task_1_2: T_LOW running : step 4  tick=3740
+[00:00:03.760,000] <inf> l1_task_1_2: T_MED running : step 6  tick=3760
+[00:00:03.820,000] <inf> l1_task_1_2: T_HIGH running : step 12  tick=3820
+[00:00:03.930,000] <inf> l1_task_1_2: T_HIGH running : step 13  tick=3930
+[00:00:03.970,000] <inf> l1_task_1_2: T_MED running : step 7  tick=3970
+[00:00:04.040,000] <inf> l1_task_1_2: T_HIGH running : step 14  tick=4040
+[00:00:04.050,000] <inf> l1_task_1_2: T_LOW running : step 5  tick=4050
+[00:00:04.150,000] <inf> l1_task_1_2: T_HIGH running : step 15  tick=4150
+[00:00:04.180,000] <inf> l1_task_1_2: T_MED running : step 8  tick=4180
+[00:00:04.260,000] <inf> l1_task_1_2: T_HIGH running : step 16  tick=4260
+[00:00:04.360,000] <inf> l1_task_1_2: T_LOW running : step 6  tick=4360
+[00:00:04.370,000] <inf> l1_task_1_2: T_HIGH running : step 17  tick=4370
+[00:00:04.390,000] <inf> l1_task_1_2: T_MED running : step 9  tick=4390
+[00:00:04.480,000] <inf> l1_task_1_2: T_HIGH running : step 18  tick=4480
+[00:00:04.590,000] <inf> l1_task_1_2: T_HIGH running : step 19  tick=4590
+[00:00:04.600,000] <inf> l1_task_1_2: T_MED running : step 10  tick=4600
+[00:00:04.670,000] <inf> l1_task_1_2: T_LOW running : step 7  tick=4670
+[00:00:04.700,000] <inf> l1_task_1_2: T_HIGH running : step 20  tick=4700
+[00:00:04.810,000] <inf> l1_task_1_2: T_HIGH running : step 21  tick=4810
+[00:00:04.810,000] <inf> l1_task_1_2: T_MED running : step 11  tick=4810
