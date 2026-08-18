@@ -1,84 +1,107 @@
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
 
-LOG_MODULE_REGISTER(l1_task_1_2, LOG_LEVEL_DBG);
+LOG_MODULE_REGISTER(l2_task1, LOG_LEVEL_DBG);
 
-#define STACK_SIZE 1024
+#define STACK_SIZE      1024
+#define PRIO            5
+#define INCREMENTS      500000   /* each thread increments this many times */
 
-#define PRIO_COOP -1
-#define PRIO_COOP_WAIT_TICKS 500000
+/* Shared state - intentionally unprotected */
+static volatile uint32_t counter;
 
-#define PRIO_LOW 7
-#define PRIO_LOW_SLEEP_MS 300
+static struct k_sem wait_sem;
+static struct k_sem done_sem;
 
-#define PRIO_MED 5
-#define PRIO_MED_SLEEP_MS 200
+static K_MUTEX_DEFINE(counter_mutex);
 
-#define PRIO_HIGH 3
-#define PRIO_HIGH_SLEEP_MS 100
-
-void t_coop_fn(void *p1, void *p2, void *p3)
+void worker_fn(void *p1, void *p2, void *p3)
 {
-    LOG_INF("[T_COOP] starting - will run 5 steps without yielding");
+    const char *name = k_thread_name_get(k_current_get());
+    
+    k_sem_take(&wait_sem, K_FOREVER);
 
-    for (int i = 0; i < 5; i++) {
-        k_busy_wait(PRIO_COOP_WAIT_TICKS);   
-        LOG_INF("[T_COOP] step %d/5 - still holding CPU  tick=%u",
-                i + 1, k_uptime_get_32());
+    for (int i = 0; i < INCREMENTS; i++) {
+        counter++;
     }
 
-    LOG_INF("[T_COOP] yielding now!");
-    k_yield();
+    LOG_INF("[%s] finished", name);
+    k_sem_give(&done_sem);
 
-    LOG_INF("[T_COOP] done");
-}
+    k_sem_take(&wait_sem, K_FOREVER);
 
-void t_low_fn(void *p1, void *p2, void *p3)
-{
-    int step = 0;
-
-    while (1) {
-        LOG_INF("T_LOW running : step %d  tick=%u", step++, k_uptime_get_32());
-        k_msleep(PRIO_LOW_SLEEP_MS);
+    for (int i = 0; i < INCREMENTS; i++) {
+        k_mutex_lock(&counter_mutex, K_FOREVER);
+        counter++;
+        k_mutex_unlock(&counter_mutex);
     }
+
+    LOG_INF("[%s] finished with mutex", name);
+    k_sem_give(&done_sem);
 }
 
-void t_med_fn(void *p1, void *p2, void *p3)
-{
-    int step = 0;
+K_THREAD_DEFINE(worker_a, STACK_SIZE, worker_fn, NULL, NULL, NULL,
+                PRIO, 0, 0);
+K_THREAD_DEFINE(worker_b, STACK_SIZE, worker_fn, NULL, NULL, NULL,
+                PRIO, 0, 0);
 
-    while (1) {
-        LOG_INF("T_MED running : step %d  tick=%u", step++, k_uptime_get_32());
-        k_msleep(PRIO_MED_SLEEP_MS);
+void wait_sec(unsigned int times) {
+    times *= 2;
+    while(times--) {
+        k_msleep(500);
+        LOG_INF("Waiting: %d", times);
     }
+    LOG_INF("Ready!");
+    k_sem_give(&wait_sem);
+    k_sem_give(&wait_sem);
 }
-
-void t_high_fn(void *p1, void *p2, void *p3)
-{
-    int step = 0;
-
-    while (1) {
-        LOG_INF("T_HIGH running : step %d  tick=%u", step++, k_uptime_get_32());
-        k_msleep(PRIO_HIGH_SLEEP_MS);
-    }
-}
-
-K_THREAD_DEFINE(T_LOW, STACK_SIZE, t_low_fn,
-                NULL, NULL, NULL, PRIO_LOW, 0, 0);
-K_THREAD_DEFINE(T_MED, STACK_SIZE, t_med_fn,
-                NULL, NULL, NULL, PRIO_MED, 0, 0);
-K_THREAD_DEFINE(T_HIGH, STACK_SIZE, t_high_fn,
-                NULL, NULL, NULL, PRIO_HIGH, 0, 0);
-K_THREAD_DEFINE(T_COOP, STACK_SIZE, t_coop_fn,
-                NULL, NULL, NULL, PRIO_COOP, 0, 0);
-
 
 int main(void)
 {
-    LOG_INF("=== L1 Task 1.2: Scheduling Competition ===");
-    LOG_INF("Thread T_LOW: priority %d, sleeps %dms", PRIO_LOW, PRIO_LOW_SLEEP_MS);
-    LOG_INF("Thread T_MED: priority %d, sleeps %dms", PRIO_MED, PRIO_MED_SLEEP_MS);
-    LOG_INF("Thread T_HIGH: priority %d, sleeps %dms", PRIO_HIGH, PRIO_HIGH_SLEEP_MS);
-    LOG_INF("Thread T_COOP: priority %d", PRIO_COOP);
+    k_sem_init(&wait_sem, 0, 2);
+    k_sem_init(&done_sem, 0, 2);
+    
+    wait_sec(5);
+
+    int64_t time = k_uptime_get();
+    
+    LOG_INF("=== L2 task 1: No Mutex Protection ===");
+    LOG_INF("Expected final value: %d", INCREMENTS * 2);
+
+    /* Wait for both workers to complete */
+    k_sem_take(&done_sem, K_FOREVER);
+    k_sem_take(&done_sem, K_FOREVER);
+
+    LOG_INF("Actual final value: %u", counter);
+
+    if (counter == INCREMENTS * 2) {
+        LOG_WRN("No race this run");
+    } else {
+        LOG_ERR("Race condition confirmed: lost %d updates",
+                (INCREMENTS * 2) - counter);
+    }
+    LOG_INF("Execution time: %lld ms", k_uptime_delta(&time));
+
+    counter = 0;
+
+    LOG_INF("=== L2 task 1: Using Mutex Protection ===");
+    LOG_INF("Expected final value: %d", INCREMENTS * 2);
+
+    wait_sec(1);
+
+    /* Wait for both workers to complete */
+    k_sem_take(&done_sem, K_FOREVER);
+    k_sem_take(&done_sem, K_FOREVER);
+
+    LOG_INF("Actual final value: %u", counter);
+
+    if (counter == INCREMENTS * 2) {
+        LOG_WRN("No race this run");
+    } else {
+        LOG_ERR("Race condition confirmed: lost %d updates",
+                (INCREMENTS * 2) - counter);
+    }
+    LOG_INF("Execution time: %lld ms", k_uptime_delta(&time));
+
     return 0;
 }

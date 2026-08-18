@@ -1,0 +1,28 @@
+[10:29:25.807] [00:00:00.501,000] <inf> l2_task1: Waiting: 9
+[10:29:25.810] [00:00:01.002,000] <inf> l2_task1: Waiting: 8
+[10:29:25.814] [00:00:01.503,000] <inf> l2_task1: Waiting: 7
+[10:29:27.409] [00:00:02.004,000] <inf> l2_task1: Waiting: 6
+[10:29:27.436] [00:00:02.505,000] <inf> l2_task1: Waiting: 5
+[10:29:27.439] [00:00:03.006,000] <inf> l2_task1: Waiting: 4
+[10:29:29.011] [00:00:03.507,000] <inf> l2_task1: Waiting: 3
+[10:29:29.013] [00:00:04.008,000] <inf> l2_task1: Waiting: 2
+[10:29:29.017] [00:00:04.509,000] <inf> l2_task1: Waiting: 1
+[10:29:29.593] [00:00:05.010,000] <inf> l2_task1: Waiting: 0
+[10:29:29.595] [00:00:05.010,000] <inf> l2_task1: Ready!
+[10:29:29.599] [00:00:05.010,000] <inf> l2_task1: === L2 task 1: No Mutex Protection ===
+[10:29:29.605] [00:00:05.010,000] <inf> l2_task1: Expected final value: 1000000
+[10:29:29.610] [00:00:05.052,000] <inf> l2_task1: [worker_a] finished
+[10:29:29.615] [00:00:05.053,000] <inf> l2_task1: [worker_b] finished
+[10:29:29.619] [00:00:05.054,000] <inf> l2_task1: Actual final value: 955988
+[10:29:29.623] [00:00:05.054,000] <err> l2_task1: Race condition confirmed: lost 44012 updates
+[10:29:29.628] [00:00:05.054,000] <inf> l2_task1: Execution time: 44 ms
+[10:29:29.635] [00:00:05.054,000] <inf> l2_task1: === L2 task 1: Using Mutex Protection ===
+[10:29:29.641] [00:00:05.054,000] <inf> l2_task1: Expected final value: 1000000
+[10:29:50.365] [00:00:05.555,000] <inf> l2_task1: Waiting: 1
+[10:29:50.367] [00:00:06.056,000] <inf> l2_task1: Waiting: 0
+[10:29:50.369] [00:00:06.056,000] <inf> l2_task1: Ready!
+[10:29:50.373] [00:00:26.392,000] <inf> l2_task1: [worker_b] finished with mutex
+[10:29:50.378] [00:00:26.392,000] <inf> l2_task1: [worker_a] finished with mutex
+[10:29:50.383] [00:00:26.392,000] <inf> l2_task1: Actual final value: 1000000
+[10:29:50.389] [00:00:26.392,000] <wrn> l2_task1: No race this run
+[10:29:50.393] [00:00:26.392,000] <inf> l2_task1: Execution time: 21338 ms
