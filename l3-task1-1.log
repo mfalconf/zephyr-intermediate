@@ -1,0 +1,27 @@
+[00:00:00.000,000] <inf> homework: === L3 Homework: Polling to Workqueue ===
+[00:00:00.000,000] <inf> homework: < TEST_BONUS FLAG = 0 >
+[00:00:00.000,000] <inf> homework: Sensor fires every 100ms
+[00:00:00.110,000] <inf> homework: [HANDLER] processed event 1  tick=110
+[00:00:00.110,000] <inf> homework: [SENSOR] event 1  tick=110
+[00:00:00.220,000] <inf> homework: [HANDLER] processed event 2  tick=220
+[00:00:00.220,000] <inf> homework: [SENSOR] event 2  tick=220
+[00:00:00.330,000] <inf> homework: [HANDLER] processed event 3  tick=330
+[00:00:00.330,000] <inf> homework: [SENSOR] event 3  tick=330
+[00:00:00.440,000] <inf> homework: [HANDLER] processed event 4  tick=440
+[00:00:00.440,000] <inf> homework: [SENSOR] event 4  tick=440
+[00:00:00.550,000] <inf> homework: [HANDLER] processed event 5  tick=550
+[00:00:00.550,000] <inf> homework: [SENSOR] event 5  tick=550
+[00:00:00.660,000] <inf> homework: [HANDLER] processed event 6  tick=660
+[00:00:00.660,000] <inf> homework: [SENSOR] event 6  tick=660
+[00:00:00.770,000] <inf> homework: [HANDLER] processed event 7  tick=770
+[00:00:00.770,000] <inf> homework: [SENSOR] event 7  tick=770
+[00:00:00.880,000] <inf> homework: [HANDLER] processed event 8  tick=880
+[00:00:00.880,000] <inf> homework: [SENSOR] event 8  tick=880
+[00:00:00.990,000] <inf> homework: [HANDLER] processed event 9  tick=990
+[00:00:00.990,000] <inf> homework: [SENSOR] event 9  tick=990
+[00:00:01.100,000] <inf> homework: [HANDLER] processed event 10  tick=1100
+[00:00:01.100,000] <inf> homework: [SENSOR] event 10  tick=1100
+[00:00:01.100,000] <inf> homework: [SENSOR] all events produced
+[00:00:01.100,000] <inf> homework: 
+
+[00:00:01.100,000] <inf> homework: [SUMMARY] events=10  processed=10

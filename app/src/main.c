@@ -1,107 +1,132 @@
+/*
+ * Lecture 3 - Homework Starter Code
+ *
+ * GOAL: Convert a polling loop to an event-driven workqueue architecture.
+ *
+ * The starter code works but is INEFFICIENT.
+ * polling_thread wakes every 10ms to check a flag.
+ * sensor_sim fires every 100ms - that's 10 wasted wake-ups per event.
+ *
+ *
+ * ================================================================
+ * TASKS
+ * ================================================================
+ *
+ * TASK 1 (starter - already works, just run it):
+ *   Run the starter. Count wake-ups vs real events in the log.
+ *   Expected: ~10 wake-ups per sensor event. Confirm this.
+ *
+ * TASK 2 (implement):
+ *   Replace polling_thread with a k_work handler.
+ *   sensor_sim should call k_work_submit() instead of setting a flag.
+ *   The handler should do what polling_thread currently does.
+ *
+ *   Steps:
+ *   - Define a work item with K_WORK_DEFINE
+ *   - Write the handler function
+ *   - In sensor_sim: call k_work_submit() (remove k_sem_give + flag)
+ *   - Remove the polling_thread entirely
+ *
+ * TASK 3 (verify):
+ *   Add k_uptime_get_32() to your handler's LOG_INF.
+ *   Confirm handler runs only when sensor_sim fires (every ~100ms).
+ *   No unnecessary wake-ups.
+ *
+ * BONUS (debounce):
+ *   Change sensor_sim to fire 5 events within 20ms (not 1 per 100ms).
+ *   Use k_work_reschedule with 30ms delay so only ONE handler
+ *   call occurs after the burst - not 5.
+ *   Log the reschedule timestamps to confirm the burst collapses.
+ *
+ * ================================================================
+ */
+
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
+#include <stdbool.h>
 
-LOG_MODULE_REGISTER(l2_task1, LOG_LEVEL_DBG);
+#define TEST_BONUS 1
 
-#define STACK_SIZE      1024
-#define PRIO            5
-#define INCREMENTS      500000   /* each thread increments this many times */
+LOG_MODULE_REGISTER(homework, LOG_LEVEL_DBG);
 
-/* Shared state - intentionally unprotected */
-static volatile uint32_t counter;
+#define STACK_SIZE    1024
+#define SENSOR_MS     100    /* sensor fires every 100ms */
+#define EVENT_COUNT   10     /* total sensor events to produce */
 
-static struct k_sem wait_sem;
-static struct k_sem done_sem;
+/* ================================================================
+ * STARTER CODE -- inefficient polling version
+ * Run this first, then replace with workqueue in Task 2.
+ * ================================================================ */
 
-static K_MUTEX_DEFINE(counter_mutex);
+/* Statistics */
+static int total_events;
+static int total_processed;
 
-void worker_fn(void *p1, void *p2, void *p3)
+static void sensor_handler(struct k_work *work)
 {
-    const char *name = k_thread_name_get(k_current_get());
-    
-    k_sem_take(&wait_sem, K_FOREVER);
-
-    for (int i = 0; i < INCREMENTS; i++) {
-        counter++;
-    }
-
-    LOG_INF("[%s] finished", name);
-    k_sem_give(&done_sem);
-
-    k_sem_take(&wait_sem, K_FOREVER);
-
-    for (int i = 0; i < INCREMENTS; i++) {
-        k_mutex_lock(&counter_mutex, K_FOREVER);
-        counter++;
-        k_mutex_unlock(&counter_mutex);
-    }
-
-    LOG_INF("[%s] finished with mutex", name);
-    k_sem_give(&done_sem);
+    ARG_UNUSED(work);
+    total_processed++;
+    LOG_INF("[HANDLER] processed event %d  tick=%u",
+            total_processed, k_uptime_get_32());
 }
 
-K_THREAD_DEFINE(worker_a, STACK_SIZE, worker_fn, NULL, NULL, NULL,
-                PRIO, 0, 0);
-K_THREAD_DEFINE(worker_b, STACK_SIZE, worker_fn, NULL, NULL, NULL,
-                PRIO, 0, 0);
+#if TEST_BONUS
+K_WORK_DELAYABLE_DEFINE(debounce_work, sensor_handler);
+#else
+K_WORK_DEFINE(sensor_work, sensor_handler);
+#endif
 
-void wait_sec(unsigned int times) {
-    times *= 2;
-    while(times--) {
-        k_msleep(500);
-        LOG_INF("Waiting: %d", times);
-    }
-    LOG_INF("Ready!");
-    k_sem_give(&wait_sem);
-    k_sem_give(&wait_sem);
+
+#if TEST_BONUS
+static void simulate_event_burst()
+{
+  for(int i = 0; i < 5; i++)
+  {
+    k_msleep(4);
+    k_work_reschedule(&debounce_work, K_MSEC(30));
+    LOG_INF("[EVENT_BURST] event %d  tick=%u", i, k_uptime_get_32());
+  }
 }
+#endif
+/* ------------------------------------------------------------------ */
+/*  sensor_sim_fn - fires EVENT_COUNT events, 100ms apart               */
+/* ------------------------------------------------------------------ */
+
+static void sensor_sim_fn(void *p1, void *p2, void *p3)
+{
+    for (int i = 0; i < EVENT_COUNT; i++) {
+#if TEST_BONUS
+        simulate_event_burst();
+        total_events++;
+        k_msleep(50);
+#else
+        k_msleep(SENSOR_MS);
+        int ret = k_work_submit(&sensor_work);
+        if (ret < 0) { LOG_ERR("submit failed: %d", ret); }
+        total_events++;
+        LOG_INF("[SENSOR] event %d  tick=%u", i+ 1, k_uptime_get_32());
+#endif        
+    }
+
+    LOG_INF("[SENSOR] all events produced");
+
+    LOG_INF("\n");
+    LOG_INF("[SUMMARY] events=%d  processed=%d\n",
+            total_events,
+            total_processed);
+}
+
+K_THREAD_DEFINE(sensor_thread,  STACK_SIZE, sensor_sim_fn, NULL, NULL, NULL, 5, 0, 0);
 
 int main(void)
 {
-    k_sem_init(&wait_sem, 0, 2);
-    k_sem_init(&done_sem, 0, 2);
-    
-    wait_sec(5);
-
-    int64_t time = k_uptime_get();
-    
-    LOG_INF("=== L2 task 1: No Mutex Protection ===");
-    LOG_INF("Expected final value: %d", INCREMENTS * 2);
-
-    /* Wait for both workers to complete */
-    k_sem_take(&done_sem, K_FOREVER);
-    k_sem_take(&done_sem, K_FOREVER);
-
-    LOG_INF("Actual final value: %u", counter);
-
-    if (counter == INCREMENTS * 2) {
-        LOG_WRN("No race this run");
-    } else {
-        LOG_ERR("Race condition confirmed: lost %d updates",
-                (INCREMENTS * 2) - counter);
-    }
-    LOG_INF("Execution time: %lld ms", k_uptime_delta(&time));
-
-    counter = 0;
-
-    LOG_INF("=== L2 task 1: Using Mutex Protection ===");
-    LOG_INF("Expected final value: %d", INCREMENTS * 2);
-
-    wait_sec(1);
-
-    /* Wait for both workers to complete */
-    k_sem_take(&done_sem, K_FOREVER);
-    k_sem_take(&done_sem, K_FOREVER);
-
-    LOG_INF("Actual final value: %u", counter);
-
-    if (counter == INCREMENTS * 2) {
-        LOG_WRN("No race this run");
-    } else {
-        LOG_ERR("Race condition confirmed: lost %d updates",
-                (INCREMENTS * 2) - counter);
-    }
-    LOG_INF("Execution time: %lld ms", k_uptime_delta(&time));
+    LOG_INF("=== L3 Homework: Polling to Workqueue ===");
+    LOG_INF("< TEST_BONUS FLAG = %d >", TEST_BONUS);
+#if !TEST_BONUS 
+    LOG_INF("Sensor fires every %dms", SENSOR_MS);
+#endif    
+    /* Wait long enough for all events to complete */
+    k_msleep((EVENT_COUNT + 2) * SENSOR_MS + 500);
 
     return 0;
 }

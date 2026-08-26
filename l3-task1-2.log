@@ -1,0 +1,66 @@
+[00:00:00.000,000] <inf> homework: === L3 Homework: Polling to Workqueue ===
+[00:00:00.000,000] <inf> homework: < TEST_BONUS FLAG = 1 >
+[00:00:00.020,000] <inf> homework: [EVENT_BURST] event 0  tick=20
+[00:00:00.040,000] <inf> homework: [EVENT_BURST] event 1  tick=40
+[00:00:00.060,000] <inf> homework: [EVENT_BURST] event 2  tick=60
+[00:00:00.080,000] <inf> homework: [EVENT_BURST] event 3  tick=80
+[00:00:00.100,000] <inf> homework: [EVENT_BURST] event 4  tick=100
+[00:00:00.140,000] <inf> homework: [HANDLER] processed event 1  tick=140
+[00:00:00.180,000] <inf> homework: [EVENT_BURST] event 0  tick=180
+[00:00:00.200,000] <inf> homework: [EVENT_BURST] event 1  tick=200
+[00:00:00.220,000] <inf> homework: [EVENT_BURST] event 2  tick=220
+[00:00:00.240,000] <inf> homework: [EVENT_BURST] event 3  tick=240
+[00:00:00.260,000] <inf> homework: [EVENT_BURST] event 4  tick=260
+[00:00:00.300,000] <inf> homework: [HANDLER] processed event 2  tick=300
+[00:00:00.340,000] <inf> homework: [EVENT_BURST] event 0  tick=340
+[00:00:00.360,000] <inf> homework: [EVENT_BURST] event 1  tick=360
+[00:00:00.380,000] <inf> homework: [EVENT_BURST] event 2  tick=380
+[00:00:00.400,000] <inf> homework: [EVENT_BURST] event 3  tick=400
+[00:00:00.420,000] <inf> homework: [EVENT_BURST] event 4  tick=420
+[00:00:00.460,000] <inf> homework: [HANDLER] processed event 3  tick=460
+[00:00:00.500,000] <inf> homework: [EVENT_BURST] event 0  tick=500
+[00:00:00.520,000] <inf> homework: [EVENT_BURST] event 1  tick=520
+[00:00:00.540,000] <inf> homework: [EVENT_BURST] event 2  tick=540
+[00:00:00.560,000] <inf> homework: [EVENT_BURST] event 3  tick=560
+[00:00:00.580,000] <inf> homework: [EVENT_BURST] event 4  tick=580
+[00:00:00.620,000] <inf> homework: [HANDLER] processed event 4  tick=620
+[00:00:00.660,000] <inf> homework: [EVENT_BURST] event 0  tick=660
+[00:00:00.680,000] <inf> homework: [EVENT_BURST] event 1  tick=680
+[00:00:00.700,000] <inf> homework: [EVENT_BURST] event 2  tick=700
+[00:00:00.720,000] <inf> homework: [EVENT_BURST] event 3  tick=720
+[00:00:00.740,000] <inf> homework: [EVENT_BURST] event 4  tick=740
+[00:00:00.780,000] <inf> homework: [HANDLER] processed event 5  tick=780
+[00:00:00.820,000] <inf> homework: [EVENT_BURST] event 0  tick=820
+[00:00:00.840,000] <inf> homework: [EVENT_BURST] event 1  tick=840
+[00:00:00.860,000] <inf> homework: [EVENT_BURST] event 2  tick=860
+[00:00:00.880,000] <inf> homework: [EVENT_BURST] event 3  tick=880
+[00:00:00.900,000] <inf> homework: [EVENT_BURST] event 4  tick=900
+[00:00:00.940,000] <inf> homework: [HANDLER] processed event 6  tick=940
+[00:00:00.980,000] <inf> homework: [EVENT_BURST] event 0  tick=980
+[00:00:01.000,000] <inf> homework: [EVENT_BURST] event 1  tick=1000
+[00:00:01.020,000] <inf> homework: [EVENT_BURST] event 2  tick=1020
+[00:00:01.040,000] <inf> homework: [EVENT_BURST] event 3  tick=1040
+[00:00:01.060,000] <inf> homework: [EVENT_BURST] event 4  tick=1060
+[00:00:01.100,000] <inf> homework: [HANDLER] processed event 7  tick=1100
+[00:00:01.140,000] <inf> homework: [EVENT_BURST] event 0  tick=1140
+[00:00:01.160,000] <inf> homework: [EVENT_BURST] event 1  tick=1160
+[00:00:01.180,000] <inf> homework: [EVENT_BURST] event 2  tick=1180
+[00:00:01.200,000] <inf> homework: [EVENT_BURST] event 3  tick=1200
+[00:00:01.220,000] <inf> homework: [EVENT_BURST] event 4  tick=1220
+[00:00:01.260,000] <inf> homework: [HANDLER] processed event 8  tick=1260
+[00:00:01.300,000] <inf> homework: [EVENT_BURST] event 0  tick=1300
+[00:00:01.320,000] <inf> homework: [EVENT_BURST] event 1  tick=1320
+[00:00:01.340,000] <inf> homework: [EVENT_BURST] event 2  tick=1340
+[00:00:01.360,000] <inf> homework: [EVENT_BURST] event 3  tick=1360
+[00:00:01.380,000] <inf> homework: [EVENT_BURST] event 4  tick=1380
+[00:00:01.420,000] <inf> homework: [HANDLER] processed event 9  tick=1420
+[00:00:01.460,000] <inf> homework: [EVENT_BURST] event 0  tick=1460
+[00:00:01.480,000] <inf> homework: [EVENT_BURST] event 1  tick=1480
+[00:00:01.500,000] <inf> homework: [EVENT_BURST] event 2  tick=1500
+[00:00:01.520,000] <inf> homework: [EVENT_BURST] event 3  tick=1520
+[00:00:01.540,000] <inf> homework: [EVENT_BURST] event 4  tick=1540
+[00:00:01.580,000] <inf> homework: [HANDLER] processed event 10  tick=1580
+[00:00:01.600,000] <inf> homework: [SENSOR] all events produced
+[00:00:01.600,000] <inf> homework: 
+
+[00:00:01.600,000] <inf> homework: [SUMMARY] events=10  processed=10
