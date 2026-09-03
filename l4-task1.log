@@ -1,0 +1,36 @@
+[00:00:00.000,000] <inf> l4_task1: === L4 Task 1: Zbus Sensor Pub-Sub ===
+[00:00:00.000,000] <inf> l4_task1: Sensor publishes every 100ms
+[00:00:00.000,000] <inf> l4_task1: Display listener runs in publisher context
+[00:00:00.000,000] <inf> l4_task1: Logger uses message subscriber copies
+[00:00:00.100,000] <inf> l4_task1: [SENSOR] publish seq=0 temp=24000 mC
+[00:00:00.100,000] <inf> l4_task1: [DISPLAY-LIS] thread=idle seq=0 temp=24000 mC
+[00:00:00.100,000] <inf> l4_task1: [LOGGER-MSG] thread=logger seq=0 temp=24000 latency=0ms
+[00:00:00.200,000] <inf> l4_task1: [SENSOR] publish seq=1 temp=24350 mC
+[00:00:00.200,000] <inf> l4_task1: [DISPLAY-LIS] thread=idle seq=1 temp=24350 mC
+[00:00:00.300,000] <inf> l4_task1: [SENSOR] publish seq=2 temp=24700 mC
+[00:00:00.300,000] <inf> l4_task1: [DISPLAY-LIS] thread=idle seq=2 temp=24700 mC
+[00:00:00.400,000] <inf> l4_task1: [SENSOR] publish seq=3 temp=25050 mC
+[00:00:00.400,000] <inf> l4_task1: [DISPLAY-LIS] thread=idle seq=3 temp=25050 mC
+[00:00:00.460,000] <inf> l4_task1: [LOGGER-MSG] thread=logger seq=1 temp=24350 latency=260ms
+[00:00:00.500,000] <inf> l4_task1: [SENSOR] publish seq=4 temp=25400 mC
+[00:00:00.500,000] <inf> l4_task1: [DISPLAY-LIS] thread=idle seq=4 temp=25400 mC
+[00:00:00.600,000] <inf> l4_task1: [SENSOR] publish seq=5 temp=25750 mC
+[00:00:00.600,000] <inf> l4_task1: [DISPLAY-LIS] thread=idle seq=5 temp=25750 mC
+[00:00:00.700,000] <inf> l4_task1: [SENSOR] publish seq=6 temp=26100 mC
+[00:00:00.700,000] <inf> l4_task1: [DISPLAY-LIS] thread=idle seq=6 temp=26100 mC
+[00:00:00.800,000] <inf> l4_task1: [SENSOR] publish seq=7 temp=26450 mC
+[00:00:00.800,000] <inf> l4_task1: [DISPLAY-LIS] thread=idle seq=7 temp=26450 mC
+[00:00:00.820,000] <inf> l4_task1: [LOGGER-MSG] thread=logger seq=2 temp=24700 latency=520ms
+[00:00:00.900,000] <inf> l4_task1: [SENSOR] publish seq=8 temp=26800 mC
+[00:00:00.900,000] <inf> l4_task1: [DISPLAY-LIS] thread=idle seq=8 temp=26800 mC
+[00:00:01.000,000] <inf> l4_task1: [SENSOR] publish seq=9 temp=27150 mC
+[00:00:01.000,000] <inf> l4_task1: [DISPLAY-LIS] thread=idle seq=9 temp=27150 mC
+[00:00:01.000,000] <inf> l4_task1: [SENSOR] done
+[00:00:01.180,000] <inf> l4_task1: [LOGGER-MSG] thread=logger seq=3 temp=25050 latency=780ms
+[00:00:01.540,000] <inf> l4_task1: [LOGGER-MSG] thread=logger seq=4 temp=25400 latency=1040ms
+[00:00:01.900,000] <inf> l4_task1: [LOGGER-MSG] thread=logger seq=5 temp=25750 latency=1300ms
+[00:00:02.260,000] <inf> l4_task1: [LOGGER-MSG] thread=logger seq=6 temp=26100 latency=1560ms
+[00:00:02.620,000] <inf> l4_task1: [LOGGER-MSG] thread=logger seq=7 temp=26450 latency=1820ms
+[00:00:02.980,000] <inf> l4_task1: [LOGGER-MSG] thread=logger seq=8 temp=26800 latency=2080ms
+[00:00:03.340,000] <inf> l4_task1: [LOGGER-MSG] thread=logger seq=9 temp=27150 latency=2340ms
+[00:00:03.700,000] <inf> l4_task1: [LOGGER-MSG] done received=10
