@@ -28,10 +28,9 @@ static void display_listener_cb(const struct zbus_channel *chan);
 ZBUS_LISTENER_DEFINE(display_listener, display_listener_cb);
 
 /*
- * Logger is a message subscriber.
- * It receives message copies, not only channel notifications.
+ * Logger is a subscriber.
  */
-ZBUS_MSG_SUBSCRIBER_DEFINE(logger_sub);
+ZBUS_SUBSCRIBER_DEFINE(logger_sub, 1);
 
 /* ================================================================== */
 /*  Channel                                                           */
@@ -101,7 +100,7 @@ K_TIMER_DEFINE(timer, timer_expiry, NULL);
 
 
 /* ================================================================== */
-/*  Message subscriber - logger                                       */
+/*  Subscriber - logger                                               */
 /* ================================================================== */
 
 static void logger_thread_fn(void *p1, void *p2, void *p3)
@@ -116,16 +115,13 @@ static void logger_thread_fn(void *p1, void *p2, void *p3)
     while (received < SENSOR_COUNT) {
         struct sensor_data msg;
 
-        /*
-         * Message subscribers receive a copy of the published message.
-         * The slow logger will not reread the latest channel value.
-         */
-        int ret = zbus_sub_wait_msg(&logger_sub, &chan, &msg, K_MSEC(1500));
+        int ret = zbus_sub_wait(&logger_sub, &chan, K_MSEC(1500));
         if (ret != 0) {
             LOG_WRN("[LOGGER-MSG] timeout ret=%d", ret);
             break;
         }
 
+        zbus_chan_read(chan, &msg, K_NO_WAIT);
         received++;
 
         LOG_INF("[LOGGER-MSG] thread=%s seq=%u temp=%d latency=%ums",
@@ -133,12 +129,6 @@ static void logger_thread_fn(void *p1, void *p2, void *p3)
                 msg.seq,
                 msg.temperature_mc,
                 k_uptime_get_32() - msg.timestamp_ms);
-
-        /*
-         * Slow logger.
-         * Message copies let it process old samples safely.
-         */
-        k_msleep(350);
     }
 
     LOG_INF("[LOGGER-MSG] done received=%d", received);
@@ -160,7 +150,7 @@ int main(void)
     LOG_INF("=== L4 Task 1: Zbus Sensor Pub-Sub ===");
     LOG_INF("Sensor publishes every %dms", SENSOR_PERIOD_MS);
     LOG_INF("Display listener runs in publisher context");
-    LOG_INF("Logger uses message subscriber copies");
+    LOG_INF("Logger uses standard subscriber notifications");
     
     k_timer_start(&timer, K_MSEC(SENSOR_PERIOD_MS), K_MSEC(SENSOR_PERIOD_MS));
     k_sem_take(&timer_done, K_FOREVER);
