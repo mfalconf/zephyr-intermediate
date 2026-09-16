@@ -1,0 +1,99 @@
+*** Booting Zephyr OS build v4.4.0 ***
+[00:00:00.000,000] <inf> l5_task1: === L5 Task 1: Zbus + Task WDT + Health Monitor ===
+[00:00:00.000,000] <inf> l5_task1: Sensor: every 100 ms  x 20 messages
+[00:00:00.000,000] <inf> l5_task1: Queue: depth=8  warn-threshold=6 (75%)
+[00:00:00.000,000] <inf> l5_task1: Consumer: WDT timeout=800 ms  stuck-delay=3000 ms
+[00:00:00.000,000] <inf> l5_task1: Expected: queue fills -> WDT fires -> consumer recovers
+[00:00:00.000,000] <inf> l5_task1: Task watchdog initialized
+[00:00:00.000,000] <inf> l5_task1: [CONSUMER] WDT channel=0 timeout=800 ms
+[00:00:00.000,000] <wrn> l5_task1: [CONSUMER] *** SIMULATING STUCK STATE for 3000 ms ***
+[00:00:00.000,000] <inf> l5_task1: [HEALTH] monitor started (warn at >= 6/8 = 75%)
+[00:00:00.100,000] <inf> l5_task1: [SENSOR] publish seq=0 temp=24000 mC
+[00:00:00.100,000] <inf> l5_task1: [DISPLAY-LIS] enqueued seq=0 (used=1/8)
+[00:00:00.200,000] <inf> l5_task1: [SENSOR] publish seq=1 temp=24350 mC
+[00:00:00.200,000] <inf> l5_task1: [DISPLAY-LIS] enqueued seq=1 (used=2/8)
+[00:00:00.210,000] <inf> l5_task1: [HEALTH] queue=2/8  free=6
+[00:00:00.300,000] <inf> l5_task1: [SENSOR] publish seq=2 temp=24700 mC
+[00:00:00.300,000] <inf> l5_task1: [DISPLAY-LIS] enqueued seq=2 (used=3/8)
+[00:00:00.400,000] <inf> l5_task1: [SENSOR] publish seq=3 temp=25050 mC
+[00:00:00.400,000] <inf> l5_task1: [DISPLAY-LIS] enqueued seq=3 (used=4/8)
+[00:00:00.420,000] <inf> l5_task1: [HEALTH] queue=4/8  free=4
+[00:00:00.500,000] <inf> l5_task1: [SENSOR] publish seq=4 temp=25400 mC
+[00:00:00.500,000] <inf> l5_task1: [DISPLAY-LIS] enqueued seq=4 (used=5/8)
+[00:00:00.600,000] <inf> l5_task1: [SENSOR] publish seq=5 temp=25750 mC
+[00:00:00.600,000] <inf> l5_task1: [DISPLAY-LIS] enqueued seq=5 (used=6/8)
+[00:00:00.630,000] <wrn> l5_task1: [HEALTH] *** WARNING queue=6/8 (75%)! ***
+[00:00:00.700,000] <inf> l5_task1: [SENSOR] publish seq=6 temp=26100 mC
+[00:00:00.700,000] <inf> l5_task1: [DISPLAY-LIS] enqueued seq=6 (used=7/8)
+[00:00:00.800,000] <err> l5_task1: [WDT] *** WATCHDOG FIRED channel=0 — consumer is STUCK! ***
+[00:00:00.800,000] <err> l5_task1: [WDT] queue fill at expiry: 7/8
+[00:00:00.800,000] <wrn> l5_task1: [WDT] (no system reset in demo — consumer will recover)
+[00:00:00.800,000] <inf> l5_task1: [SENSOR] publish seq=7 temp=26450 mC
+[00:00:00.800,000] <inf> l5_task1: [DISPLAY-LIS] enqueued seq=7 (used=8/8)
+[00:00:00.840,000] <wrn> l5_task1: [HEALTH] *** WARNING queue=8/8 (100%)! ***
+[00:00:00.900,000] <inf> l5_task1: [SENSOR] publish seq=8 temp=26800 mC
+[00:00:00.900,000] <wrn> l5_task1: [DISPLAY-LIS] queue FULL — dropped seq=8 (used=8/8)
+[00:00:01.000,000] <inf> l5_task1: [SENSOR] publish seq=9 temp=27150 mC
+[00:00:01.000,000] <wrn> l5_task1: [DISPLAY-LIS] queue FULL — dropped seq=9 (used=8/8)
+[00:00:01.050,000] <wrn> l5_task1: [HEALTH] *** WARNING queue=8/8 (100%)! ***
+[00:00:01.100,000] <inf> l5_task1: [SENSOR] publish seq=10 temp=27500 mC
+[00:00:01.100,000] <wrn> l5_task1: [DISPLAY-LIS] queue FULL — dropped seq=10 (used=8/8)
+[00:00:01.200,000] <inf> l5_task1: [SENSOR] publish seq=11 temp=27850 mC
+[00:00:01.200,000] <wrn> l5_task1: [DISPLAY-LIS] queue FULL — dropped seq=11 (used=8/8)
+[00:00:01.260,000] <wrn> l5_task1: [HEALTH] *** WARNING queue=8/8 (100%)! ***
+[00:00:01.300,000] <inf> l5_task1: [SENSOR] publish seq=12 temp=28200 mC
+[00:00:01.300,000] <wrn> l5_task1: [DISPLAY-LIS] queue FULL — dropped seq=12 (used=8/8)
+[00:00:01.400,000] <inf> l5_task1: [SENSOR] publish seq=13 temp=28550 mC
+[00:00:01.400,000] <wrn> l5_task1: [DISPLAY-LIS] queue FULL — dropped seq=13 (used=8/8)
+[00:00:01.470,000] <wrn> l5_task1: [HEALTH] *** WARNING queue=8/8 (100%)! ***
+[00:00:01.500,000] <inf> l5_task1: [SENSOR] publish seq=14 temp=28900 mC
+[00:00:01.500,000] <wrn> l5_task1: [DISPLAY-LIS] queue FULL — dropped seq=14 (used=8/8)
+[00:00:01.600,000] <inf> l5_task1: [SENSOR] publish seq=15 temp=29250 mC
+[00:00:01.600,000] <wrn> l5_task1: [DISPLAY-LIS] queue FULL — dropped seq=15 (used=8/8)
+[00:00:01.680,000] <wrn> l5_task1: [HEALTH] *** WARNING queue=8/8 (100%)! ***
+[00:00:01.700,000] <inf> l5_task1: [SENSOR] publish seq=16 temp=29600 mC
+[00:00:01.700,000] <wrn> l5_task1: [DISPLAY-LIS] queue FULL — dropped seq=16 (used=8/8)
+[00:00:01.800,000] <inf> l5_task1: [SENSOR] publish seq=17 temp=29950 mC
+[00:00:01.800,000] <wrn> l5_task1: [DISPLAY-LIS] queue FULL — dropped seq=17 (used=8/8)
+[00:00:01.890,000] <wrn> l5_task1: [HEALTH] *** WARNING queue=8/8 (100%)! ***
+[00:00:01.900,000] <inf> l5_task1: [SENSOR] publish seq=18 temp=30300 mC
+[00:00:01.900,000] <wrn> l5_task1: [DISPLAY-LIS] queue FULL — dropped seq=18 (used=8/8)
+[00:00:02.000,000] <inf> l5_task1: [SENSOR] publish seq=19 temp=30650 mC
+[00:00:02.000,000] <wrn> l5_task1: [DISPLAY-LIS] queue FULL — dropped seq=19 (used=8/8)
+[00:00:02.000,000] <inf> l5_task1: [SENSOR] done publishing
+[00:00:02.000,000] <inf> l5_task1: [MAIN] sensor done — waiting for consumer to finish
+[00:00:02.100,000] <wrn> l5_task1: [HEALTH] *** WARNING queue=8/8 (100%)! ***
+[00:00:02.310,000] <wrn> l5_task1: [HEALTH] *** WARNING queue=8/8 (100%)! ***
+[00:00:02.520,000] <wrn> l5_task1: [HEALTH] *** WARNING queue=8/8 (100%)! ***
+[00:00:02.730,000] <wrn> l5_task1: [HEALTH] *** WARNING queue=8/8 (100%)! ***
+[00:00:02.940,000] <wrn> l5_task1: [HEALTH] *** WARNING queue=8/8 (100%)! ***
+[00:00:03.010,000] <inf> l5_task1: [CONSUMER] recovered —> resuming normal operation
+[00:00:03.010,000] <inf> l5_task1: [CONSUMER] seq=0 temp=24000 mC latency=2910 ms  [1/20]
+[00:00:03.010,000] <inf> l5_task1: [CONSUMER] seq=1 temp=24350 mC latency=2810 ms  [2/20]
+[00:00:03.010,000] <inf> l5_task1: [CONSUMER] seq=2 temp=24700 mC latency=2710 ms  [3/20]
+[00:00:03.010,000] <inf> l5_task1: [CONSUMER] seq=3 temp=25050 mC latency=2610 ms  [4/20]
+[00:00:03.010,000] <inf> l5_task1: [CONSUMER] seq=4 temp=25400 mC latency=2510 ms  [5/20]
+[00:00:03.010,000] <inf> l5_task1: [CONSUMER] seq=5 temp=25750 mC latency=2410 ms  [6/20]
+[00:00:03.010,000] <inf> l5_task1: [CONSUMER] seq=6 temp=26100 mC latency=2310 ms  [7/20]
+[00:00:03.010,000] <inf> l5_task1: [CONSUMER] seq=7 temp=26450 mC latency=2210 ms  [8/20]
+[00:00:03.150,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:03.360,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:03.570,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:03.780,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:03.990,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:04.200,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:04.410,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:04.620,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:04.830,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:05.040,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:05.250,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:05.460,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:05.670,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:05.880,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:06.090,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:06.300,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:06.510,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:06.720,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:06.930,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:07.140,000] <inf> l5_task1: [HEALTH] queue=0/8  free=8
+[00:00:07.140,000] <inf> l5_task1: [HEALTH] monitor done
