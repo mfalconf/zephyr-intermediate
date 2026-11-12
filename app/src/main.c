@@ -1,43 +1,34 @@
 #include <zephyr/kernel.h>
-#include <stdio.h>
-#include <string.h>
-#include "credentials.h"
-#include "parser.h"
+#include <zephyr/logging/log.h>
 
-#define PARSER_STACK_SIZE 2048
+LOG_MODULE_REGISTER(demo, LOG_LEVEL_DBG);
 
-K_THREAD_STACK_DEFINE(parser_stack, PARSER_STACK_SIZE);
-static struct k_thread parser_thread;
+#define STACK_SIZE 1024
 
-/*
- * Parser thread: receives three packets and parses them.
- * The first is a normal command, the other two are an attacker's commands,
- * each reading 16 bytes of the key.
- */
-static void parser_entry(void *attack_index, void *p2, void *p3)
+#define PRIO_A 5
+#define PRIO_B 5
+
+void thread_a_fn(void *p1, void *p2, void *p3)
 {
-	/* On this thread's stack, so the parser can always access them. */
-	char packets[3][32];
-
-	strcpy(packets[0], "get=0");
-	snprintf(packets[1], sizeof(packets[1]), "get=%ld", (long)attack_index);
-	snprintf(packets[2], sizeof(packets[2]), "get=%ld", (long)attack_index + 1);
-
-	for (int i = 0; i < ARRAY_SIZE(packets); i++) {
-		printk("parser: received '%s'\n", packets[i]);
-		parse_command(packets[i]);
-	}
+    while (1) {
+        k_msleep(200);
+    }
 }
 
-/* Starts the parser thread. */
+void thread_b_fn(void *p1, void *p2, void *p3)
+{
+    while (1) {
+        k_msleep(300);
+    }
+}
+
+K_THREAD_DEFINE(thread_a, STACK_SIZE, thread_a_fn,
+                NULL, NULL, NULL, PRIO_A, 0, 0);
+K_THREAD_DEFINE(thread_b, STACK_SIZE, thread_b_fn,
+                NULL, NULL, NULL, PRIO_B, 0, 0);
+
 int main(void)
 {
-	/* The attacker would compute this index from the firmware's ELF file. */
-	long attack_index = ((const char *)credentials_key_addr() -
-			     (const char *)parser_settings_addr()) / SETTING_SIZE;
-
-	k_thread_create(&parser_thread, parser_stack, PARSER_STACK_SIZE,
-			parser_entry, (void *)attack_index, NULL, NULL,
-			5, K_USER, K_NO_WAIT);
-	return 0;
+    return 0;
 }
+
