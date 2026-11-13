@@ -1,0 +1,28 @@
+2026-11-13 04:07:21,271 - twister - DEBUG - OUTPUT: ------ TESTSUITE SUMMARY START ------
+2026-11-13 04:07:21,271 - twister - DEBUG - OUTPUT: 
+2026-11-13 04:07:21,272 - twister - DEBUG - OUTPUT: SUITE PASS - 100.00% [temp_alarm_check]: pass = 3, fail = 0, skip = 0, total = 3 duration = 0.000 seconds
+2026-11-13 04:07:21,272 - twister - DEBUG - OUTPUT:  - PASS - [temp_alarm_check.test_above_threshold] duration = 0.000 seconds
+2026-11-13 04:07:21,272 - twister - DEBUG - OUTPUT:  - PASS - [temp_alarm_check.test_at_threshold] duration = 0.000 seconds
+2026-11-13 04:07:21,272 - twister - DEBUG - OUTPUT:  - PASS - [temp_alarm_check.test_below_threshold] duration = 0.000 seconds
+2026-11-13 04:07:21,273 - twister - DEBUG - OUTPUT: 
+2026-11-13 04:07:21,273 - twister - DEBUG - OUTPUT: SUITE PASS - 100.00% [temp_alarm_get_status]: pass = 1, fail = 0, skip = 0, total = 1 duration = 0.000 seconds
+2026-11-13 04:07:21,273 - twister - DEBUG - OUTPUT:  - PASS - [temp_alarm_get_status.test_status_after_init] duration = 0.000 seconds
+2026-11-13 04:07:21,273 - twister - DEBUG - OUTPUT: 
+2026-11-13 04:07:21,274 - twister - DEBUG - OUTPUT: SUITE PASS - 100.00% [temp_alarm_invalid_input]: pass = 4, fail = 0, skip = 0, total = 4 duration = 0.000 seconds
+2026-11-13 04:07:21,274 - twister - DEBUG - OUTPUT:  - PASS - [temp_alarm_invalid_input.test_get_status_null] duration = 0.000 seconds
+2026-11-13 04:07:21,274 - twister - DEBUG - OUTPUT:  - PASS - [temp_alarm_invalid_input.test_init_threshold_out_of_range] duration = 0.000 seconds
+2026-11-13 04:07:21,274 - twister - DEBUG - OUTPUT:  - PASS - [temp_alarm_invalid_input.test_init_without_device] duration = 0.000 seconds
+2026-11-13 04:07:21,274 - twister - DEBUG - OUTPUT:  - PASS - [temp_alarm_invalid_input.test_set_threshold_out_of_range] duration = 0.000 seconds
+2026-11-13 04:07:21,275 - twister - DEBUG - OUTPUT: 
+2026-11-13 04:07:21,275 - twister - DEBUG - OUTPUT: SUITE PASS - 100.00% [temp_alarm_reset]: pass = 1, fail = 0, skip = 0, total = 1 duration = 0.000 seconds
+2026-11-13 04:07:21,275 - twister - DEBUG - OUTPUT:  - PASS - [temp_alarm_reset.test_reset_clears_state] duration = 0.000 seconds
+2026-11-13 04:07:21,275 - twister - DEBUG - OUTPUT: 
+2026-11-13 04:07:21,275 - twister - DEBUG - OUTPUT: SUITE PASS - 100.00% [temp_alarm_sensor_errors]: pass = 3, fail = 0, skip = 0, total = 3 duration = 0.000 seconds
+2026-11-13 04:07:21,276 - twister - DEBUG - OUTPUT:  - PASS - [temp_alarm_sensor_errors.test_channel_get_error_propagates] duration = 0.000 seconds
+2026-11-13 04:07:21,276 - twister - DEBUG - OUTPUT:  - PASS - [temp_alarm_sensor_errors.test_fail_then_recover] duration = 0.000 seconds
+2026-11-13 04:07:21,276 - twister - DEBUG - OUTPUT:  - PASS - [temp_alarm_sensor_errors.test_fetch_error_propagates] duration = 0.000 seconds
+2026-11-13 04:07:21,276 - twister - DEBUG - OUTPUT: 
+2026-11-13 04:07:21,277 - twister - DEBUG - OUTPUT: SUITE PASS - 100.00% [temp_alarm_threshold]: pass = 1, fail = 0, skip = 0, total = 1 duration = 0.000 seconds
+2026-11-13 04:07:21,277 - twister - DEBUG - OUTPUT:  - PASS - [temp_alarm_threshold.test_new_threshold_clears_alarm] duration = 0.000 seconds
+2026-11-13 04:07:21,277 - twister - DEBUG - OUTPUT: 
+2026-11-13 04:07:21,277 - twister - DEBUG - OUTPUT: ------ TESTSUITE SUMMARY END ------
