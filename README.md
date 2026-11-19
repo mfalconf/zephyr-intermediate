@@ -1,15 +1,10 @@
-# Zephyr Training Environment
+# Memory isolation exercise — Zephyr on QEMU
 
-Welcome to the Zephyr RTOS training! This repository includes a ready-to-use
-development environment based on Zephyr **4.4.0**, which you can set up in one of
-three ways:
+A Zephyr application with a network command parser that has an out-of-bounds read bug.
+An attacker can use it to read the device's private key. Your task is to isolate the
+parser so the bug can no longer reach the key.
 
----
+It runs on an emulated Cortex-M33 board in QEMU inside Docker, so no hardware is needed.
 
-## Manual Zephyr Setup
-
-Follow the following guide:
-- [Getting Started Guide](https://docs.zephyrproject.org/4.4.0/develop/getting_started/index.html#).
-
-Make sure to select appropriate OS and to perform all steps till
-[Build the Blinky Sample](https://docs.zephyrproject.org/4.4.0/develop/getting_started/index.html#build-the-blinky-sample).
+1. [SETUP.md](SETUP.md) — install, build and run the project.
+2. [HOMEWORK_TASK.md](HOMEWORK_TASK.md) — the scenario, the task and the expected result.
